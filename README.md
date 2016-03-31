@@ -16,6 +16,11 @@ Ths was developed as part of a presentation we (@alcuadrado & @mattaereal) gave 
 * termcolor 1.1.0
 * python-magic 0.4.3
 
+## Installation (which anaconda)
+
+conda install opencv
+pip install git+https://github.com/alcuadrado/pija.git
+
 ## Running it
 
 Just run:

@@ -1,11 +1,8 @@
-#!/bin/env python2
-
 """Analizer module."""
 
 from __future__ import division
 import cv2
 import magic
-import random
 import numpy as np
 from scipy import ndimage
 
@@ -14,6 +11,7 @@ from key_frame_extractor import get_key_frames
 
 PERCENTAGE_OF_FRAMES_TO_ANALIZE = 0.1
 BYTES_PER_PIXEL = 3
+
 
 class SkinRegion(object):
 
@@ -71,6 +69,7 @@ def analize(path):
 
     return False
 
+
 def analize_image(path):
     """Analizes a file, returning True if it contains nudity."""
     image = cv2.imread(path)
@@ -79,6 +78,7 @@ def analize_image(path):
         return False
 
     return analize_numpy_array(image)
+
 
 def analize_video(path):
     """Analizes a video, returning True if it contains nudity."""
@@ -91,12 +91,13 @@ def analize_video(path):
     for frame in get_key_frames(vidcap):
         has_porn = analize_numpy_array(frame)
 
-        #If we find one porn frame we tag the video as porn, this can be
-        #really improved.
+        # If we find one porn frame we tag the video as porn, this can be
+        # really improved.
         if has_porn:
             return True
 
     return False
+
 
 def analize_numpy_array(image):
     """Analize an image as a numpy array, returning True if it contains
@@ -170,6 +171,7 @@ def get_skin_mask(image, image_in_ycbcr):
         )
     )
 
+
 def paint_non_skin_pixels(image, color_r=0, color_g=0, color_b=0,
                           skin_mask=None):
     """Paints non-skin colored pixels in-place."""
@@ -178,6 +180,7 @@ def paint_non_skin_pixels(image, color_r=0, color_g=0, color_b=0,
 
     image[~skin_mask] = [color_b, color_g, color_r]
 
+
 def paint_skin_pixels(image, color_r=0, color_g=0, color_b=0, skin_mask=None):
     """Paints the skin colored pixels in-place."""
     if skin_mask is None:
@@ -185,12 +188,14 @@ def paint_skin_pixels(image, color_r=0, color_g=0, color_b=0, skin_mask=None):
 
     image[skin_mask] = [color_b, color_g, color_r]
 
+
 def skin_binarize_image(image):
     """Paints all skin colored pixels of white and non-skin pixels of black
     in-place."""
     skin_mask = get_skin_mask(image)
     paint_skin_pixels(image, 255, 255, 255, skin_mask)
     paint_non_skin_pixels(image, 0, 0, 0, skin_mask)
+
 
 def get_skin_regions(image, skin_mask):
     """Returns an array of SkinRegion for the image with the data for the

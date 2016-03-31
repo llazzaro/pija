@@ -5,9 +5,10 @@ import cv2
 import numpy as np
 import math
 
-MAX_DISTANCE_PIXEL = math.sqrt(3*math.pow(255,2))
+MAX_DISTANCE_PIXEL = math.sqrt(3 * math.pow(255, 2))
 MIN_SCENE_LENGTH = 10
 THRESHOLD = 0.1
+
 
 def get_key_frames(video_capture):
     """Yields the key frames of the video."""
@@ -39,10 +40,10 @@ def get_key_frames(video_capture):
 
                 yield get_frame_by_index(video_capture, key_frame_index)
 
-
         frame_index += 1
         previous_frame = actual_frame
         sucess, actual_frame = video_capture.read()
+
 
 def get_frame_by_index(video_capture, frame_index):
     """Returns an frame from a cv2 video capture or None on failure."""

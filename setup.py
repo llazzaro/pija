@@ -8,14 +8,15 @@ except ImportError:
     from distutils.core import setup
 
 
-with open('README.rst') as readme_file:
+with open('README.md') as readme_file:
     readme = readme_file.read()
 
 with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
 requirements = [
-    # TODO: put package requirements here
+    'termcolor',
+    'python-magic',
 ]
 
 test_requirements = [
@@ -54,5 +55,8 @@ setup(
         'Programming Language :: Python :: 3.5',
     ],
     test_suite='tests',
-    tests_require=test_requirements
+    tests_require=test_requirements,
+    entry_points={'console_scripts': [
+        'pija = pija.bin.pija'
+    ]}
 )
